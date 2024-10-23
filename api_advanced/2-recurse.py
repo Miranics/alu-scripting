@@ -4,9 +4,10 @@ import requests
 
 
 def recurse(subreddit, hot_list=[], after=""):
-    """ "Doc
-    Reddit sends an after property in the response.
-    Keep retrieving comments until after is null.
+    """
+    Retrieve hot posts from a subreddit recursively.
+    Reddit sends an 'after' property in the response, and
+    the function will keep retrieving posts until 'after' is null.
     """
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     header = {"User-Agent": "Mozilla/5.0"}
@@ -15,14 +16,15 @@ def recurse(subreddit, hot_list=[], after=""):
 
     if res.status_code != 200:
         return None
-    else:
-        json_res = res.json()
-        # print(json_res.get('data').get('after'))
-        after = json_res.get("data").get("after")
-        has_next = json_res.get("data").get("after") is not None
-        # print(has_next)
-        hot_articles = json_res.get("data").get("children")
-        [hot_list.append(article.get("data").get("title")) for article in hot_articles]
-        # print(len(hot_list))
-        # print(hot_list)
-        return recurse(subreddit, hot_list, after=after) if has_next else hot_list
+
+    json_res = res.json()
+    after = json_res.get("data").get("after")
+    has_next = after is not None
+    hot_articles = json_res.get("data").get("children")
+
+    # Collect the titles of the hot posts
+    for article in hot_articles:
+        hot_list.append(article.get("data").get("title"))
+
+    # Recurse if there are more posts to retrieve
+    return recurse(subreddit, hot_list, after=after) if has_next else hot_list
