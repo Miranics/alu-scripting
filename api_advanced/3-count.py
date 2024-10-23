@@ -21,7 +21,7 @@ def count_words(subreddit, word_list, after="", words_count={}):
 
     if len(words_count) == 0:
         words_count = {word: 0 for word in words}
-    
+
     hot_articles = json_res.get("data").get("children")
     [
         hot_titles.append(article.get("data").get("title"))
@@ -43,7 +43,7 @@ def count_words(subreddit, word_list, after="", words_count={}):
                 lambda item: item[1] != 0, words_count.items()
             )
         )
-        
+
         words_count = sorted(
             words_count.items(),
             key=lambda item: item[1],
