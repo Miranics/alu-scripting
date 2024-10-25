@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Fetches and prints 'OK' if the subreddit is valid; otherwise, prints None."""
+"""Checks if a subreddit is valid and prints 'OK' if valid, otherwise 'None'."""
 import requests
 
 
@@ -9,7 +9,7 @@ def top_ten(subreddit):
     headers = {"User-Agent": "Mozilla/5.0"}
     response = requests.get(url, headers=headers, allow_redirects=False)
 
-    if response.status_code != 200:
-        print(None)
+    if response.status_code == 200:
+        print("OK")  # Indicate valid subreddit
     else:
-        print("OK")  # Indicate valid subreddit as expected by your test
+        print(None)  # Indicate invalid subreddit
