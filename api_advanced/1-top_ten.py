@@ -1,25 +1,30 @@
 #!/usr/bin/python3
-"""
-get top 10 hot posts function
-"""
-
-import json
+'''
+Defines function that prints the top ten posts of a subreddit
+'''
 import requests
-import sys
 
 
 def top_ten(subreddit):
-    """Prints the titles of the first 10 hot posts for a subreddit."""
-    if len(sys.argv) < 2:
+    '''Prints the top ten posts of a subreddit
+
+    Return:
+        None -  if the subreddit is invalid
+    '''
+    if subreddit is None or not isinstance(subreddit, str):
         print(None)
+    endpoint = 'https://www.reddit.com'
+    headers = {'user-agent': '0x16-api_advanced:project:\
+v1.0.0 (by /u/shobi_ola)'}
+    params = {'limit': 10}
+    info = requests.get('{}/r/{}/hot.json'.format(endpoint, subreddit),
+                        allow_redirects=False,
+                        headers=headers,
+                        params=params)
+    if info.status_code == 200:
+        json_info = info.json()
+        for post in json_info.get('data').get('children'):
+            print(post.get('data').get('title'))
     else:
-        url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-        headers = {"User-Agent": "Mozilla/5.0"}
-        result = requests.get(url, headers=headers, allow_redirects=False)
-        if result.status_code != 200:
-            print(None)
-        else:
-            data = json.loads(result.text)["data"]["children"]
-            for post in data[:10]:
-                print(post["data"]["title"])
-                
+        print(None)
+        
