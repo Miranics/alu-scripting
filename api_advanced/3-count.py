@@ -23,10 +23,7 @@ def count_words(subreddit, word_list, after="", words_count={}):
         words_count = {word: 0 for word in words}
 
     hot_articles = json_res.get("data").get("children")
-    [
-        hot_titles.append(article.get("data").get("title"))
-        for article in hot_articles
-    ]
+    [hot_titles.append(article.get("data").get("title")) for article in hot_articles]
 
     # loop through all titles
     for i in range(len(hot_titles)):
@@ -38,19 +35,11 @@ def count_words(subreddit, word_list, after="", words_count={}):
     if has_next:
         return count_words(subreddit, word_list, after, words_count)
     else:
-        words_count = dict(
-            filter(
-                lambda item: item[1] != 0, words_count.items()
-            )
-        )
+        words_count = dict(filter(lambda item: item[1] != 0, words_count.items()))
 
         words_count = sorted(
-            words_count.items(),
-            key=lambda item: item[1],
-            reverse=True
+            words_count.items(), key=lambda item: item[1], reverse=True
         )
 
         for i in range(len(words_count)):
-            print(
-                "{}: {}".format(words_count[i][0], words_count[i][1])
-            )
+            print("{}: {}".format(words_count[i][0], words_count[i][1]))
