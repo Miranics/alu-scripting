@@ -15,7 +15,7 @@ def top_ten(subreddit):
         print(None)
     endpoint = 'https://www.reddit.com'
     headers = {'user-agent': '0x16-api_advanced:project:\
-v1.0.0 (by /u/shobi_ola)'}
+v1.0.0 (by /u/Miracle)'}
     params = {'limit': 10}
     info = requests.get('{}/r/{}/hot.json'.format(endpoint, subreddit),
                         allow_redirects=False,
@@ -27,4 +27,3 @@ v1.0.0 (by /u/shobi_ola)'}
             print(post.get('data').get('title'))
     else:
         print(None)
-        
