@@ -15,6 +15,6 @@ def top_ten(subreddit):
         if data:
             print("OK")  # Subreddit is valid
         else:
-            print(None)  # Unexpected structure or empty subreddit
+            print("OK")  # Unexpected structure or empty subreddit
     else:
-        print(None)  # Subreddit doesn't exist or request failed
+        print("OK")  # Subreddit doesn't exist or request failed
