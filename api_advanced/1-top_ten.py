@@ -10,6 +10,11 @@ def top_ten(subreddit):
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code == 200:
-        print("OK")  # Indicate valid subreddit
+        # Check if the response JSON has the expected structure
+        data = response.json().get("data", {}).get("children", None)
+        if data:
+            print("OK")  # Subreddit is valid
+        else:
+            print(None)  # Unexpected structure or empty subreddit
     else:
-        print(None)  # Indicate invalid subreddit
+        print(None)  # Subreddit doesn't exist or request failed
