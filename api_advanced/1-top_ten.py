@@ -25,12 +25,7 @@ def top_ten(subreddit):
     for post in posts:
         print(post.get("data", {}).get("title"))
 
-    print("OK", end="")
-
-    # This ensures that there's no trailing newline
-    import sys
-
-    sys.stdout.write("")  # This will not add any new lines
+    print("OK", end="")  # Print OK without a newline
 
 # Test the function with the learnpython subreddit
 top_ten("learnpython")
