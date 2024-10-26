@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """
-Reddit Top Ten Module
+Reddit Top Ten Posts
 
-This module defines a function that fetches and prints the titles of the first
-10 hot posts listed for a given subreddit using the Reddit API.
+Fetches and prints the titles of the first 10 hot posts from a given subreddit.
 
 Example:
     To use this module, import it and call the function:
@@ -15,8 +14,8 @@ Example:
 
 Functions:
     top_ten(subreddit): Fetches and prints the titles of the first 10 hot posts
-    for a given subreddit. If the subreddit does not exist or an error occurs,
-    "None" is printed.
+    for a given subreddit. Prints "None" if the subreddit is invalid or there
+    is an error.
 """
 
 import requests
@@ -34,15 +33,13 @@ def top_ten(subreddit):
     """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {"User-Agent": "Mozilla/5.0"}
-    
-    # Request data with allow_redirects=False to prevent automatic redirects on invalid subreddits
+
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code != 200:
         print("None")
         return
 
-    # Extract post titles if the subreddit is valid
     posts = response.json().get("data", {}).get("children", [])
     if not posts:
         print("None")
@@ -52,7 +49,7 @@ def top_ten(subreddit):
         print(post.get("data", {}).get("title", ""))
 
 
-# Testing command-line execution for the script
+# Command-line execution
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
