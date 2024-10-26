@@ -24,7 +24,3 @@ def top_ten(subreddit):
 
     # Print OK only once
     print("OK", end="")  # This ensures that "OK" is printed without a newline
-
-
-# Test the function with the learnpython subreddit
-top_ten("learnpython")
