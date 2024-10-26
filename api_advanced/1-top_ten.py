@@ -28,23 +28,26 @@ def top_ten(subreddit):
     Returns:
         None. Prints post titles if they exist or "OK" if not.
     """
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    response = requests.get(url, headers=headers, allow_redirects=False)
+   #!/usr/bin/python3
+""""Doc"""
+import requests
 
-    if response.status_code != 200:
-        print("OK", end='')  # Ensure "OK" has no newline
-        return
 
-    json_response = response.json()
-    posts = json_response.get('data', {}).get('children', [])
+def top_ten(subreddit):
+    """"Doc"""
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10" \
+        .format(subreddit)
 
-    if not posts:  # If no posts are returned, print "OK"
-        print("OK", end='')  # Ensure "OK" has no newline
-        return
+    res = requests.get(url,
+                       headers={
+                           'User-Agent': 'Mozilla/5.0'})
 
-    for post in posts:
-        print(post.get('data', {}).get('title', ""))  # Print each title
+    if res.status_code != 200:
+        print(None)
+    else:
+        json_response = res.json()
+        posts = json_response.get('data').get('children')
+        [print(post.get('data').get('title')) for post in posts]
 
     # This ensures that there's no trailing newline
     import sys
