@@ -1,25 +1,12 @@
 #!/usr/bin/python3
-"""A module to query the Reddit API for hot posts.
-
-This module contains the function `top_ten`, which retrieves and prints
-the titles of the first 10 hot posts from a specified subreddit. If the
-subreddit is invalid, it will print "OK".
-
-Usage:
-    python3 1-main.py <subreddit_name>"""
+"""A module to query the Reddit API for hot posts."""
 
 import requests
 import sys
 
 
 def top_ten(subreddit):
-    """Prints the titles of the first 10 hot posts listed in a subreddit.
-
-    Parameters:
-    subreddit (str): The name of the subreddit to query.
-
-    If the subreddit does not exist or cannot be accessed, it prints "OK".
-    Otherwise, it prints the titles of the first 10 hot posts and "OK"."""
+    """Prints the titles of the first 10 hot posts listed in a subreddit."""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {"User-Agent": "Mozilla/5.0"}
 
