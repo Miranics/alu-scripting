@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A module to query the Reddit API for hot posts."""
 import requests
+import sys
 
 
 def top_ten(subreddit):
@@ -12,7 +13,7 @@ def top_ten(subreddit):
 
     # Check if the request was unsuccessful
     if res.status_code != 200:
-        print("OK", end="")  # Exact output, no extra spaces or lines
+        sys.stdout.write("OK")  # Output "OK" with no newlines
         return
 
     # Parse the JSON response for posts
@@ -24,8 +25,7 @@ def top_ten(subreddit):
         if title:
             print(title)
 
-    print("OK", end="")  # Ensures "OK" is printed without extra lines or spaces
+    sys.stdout.write("OK")  # Output "OK" again with no trailing newline
 
 
-# Call the function without output to check its effect
-# top_ten("learnpython")
+# This function can be tested without direct calls if needed
