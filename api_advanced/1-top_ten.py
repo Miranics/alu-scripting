@@ -5,7 +5,7 @@ import requests
 
 def top_ten(subreddit):
     """Prints the titles of the first 10 hot posts listed in a subreddit."""
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
 
     # Send a GET request to the subreddit URL
     res = requests.get(
@@ -25,8 +25,12 @@ def top_ten(subreddit):
     for post in posts:
         print(post.get("data", {}).get("title"))
 
-    print("OK", end="")  # Print OK without a newline
+    print("OK", end="")
 
+    # This ensures that there's no trailing newline
+    import sys
+
+    sys.stdout.write("")  # This will not add any new lines
 
 # Test the function with the learnpython subreddit
 top_ten("learnpython")
