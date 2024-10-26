@@ -43,7 +43,7 @@ def top_ten(subreddit):
     print("OK", end="")  # This prints OK without an extra newline
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
     else:
