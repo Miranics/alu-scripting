@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 """
-Reddit Top Ten Posts Module
+Reddit Top Ten Posts
 
-This script fetches and prints the titles of the first 10 hot posts listed
-for a specified subreddit using the Reddit API.
+This module queries the Reddit API and prints the titles of the first 10
+hot posts for a specified subreddit.
 
-Example:
-    To use this script, run the following command:
-        $ python3 1-top_ten.py <subreddit_name>
+Usage:
+    Call the `top_ten(subreddit)` function with the name of a subreddit.
 
 Functions:
-    top_ten(subreddit): Queries the Reddit API and prints the titles of the first
-    10 hot posts for a given subreddit. Prints "None" if the subreddit is invalid.
+    - top_ten(subreddit): Prints the titles of the top 10 hot posts of the subreddit.
 """
 
 import requests
@@ -22,38 +20,24 @@ def top_ten(subreddit):
     Prints the titles of the first 10 hot posts for a given subreddit.
 
     Args:
-        subreddit (str): The name of the subreddit to query.
+        subreddit (str): The name of the subreddit to retrieve posts from.
 
     Returns:
-        None. Prints the titles of the posts or "None" if an error occurs.
+        None. Prints post titles or "None" if an error occurs.
     """
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {"User-Agent": "Mozilla/5.0"}
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers=headers, allow_redirects=False)
 
-    # Check if the subreddit is invalid or there's an error in the response
     if response.status_code != 200:
-        print("None")
+        print(None)
         return
 
-    try:
-        # Extracting the top 10 posts' titles
-        posts = response.json().get("data", {}).get("children", [])
-        if not posts:
-            print("None")
-            return
-        
-        for post in posts[:10]:
-            print(post.get("data", {}).get("title", ""))
-    except (ValueError, KeyError, TypeError):
-        # Handle any unexpected JSON or structure issues gracefully
-        print("None")
+    json_response = response.json()
+    posts = json_response.get('data', {}).get('children', [])
+    if not posts:
+        print(None)
+        return
 
-
-# Command-line execution
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) < 2:
-        print("Please provide a subreddit to search.")
-    else:
-        top_ten(sys.argv[1])
+    for post in posts:
+        print(post.get('data', {}).get('title', ""))
