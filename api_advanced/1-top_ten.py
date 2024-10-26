@@ -14,7 +14,6 @@ def top_ten(subreddit):
 
     # Check if the request was successful
     if res.status_code != 200:
-        print("OK", end="")
         return
 
     # Parse the JSON response
