@@ -30,16 +30,16 @@ def top_ten(subreddit):
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code != 200:
-        print("OK")  # Print "OK" when the subreddit is invalid or inaccessible
+        print("OK", end='')  # Print "OK" without a newline or extra space
         return
 
     json_response = response.json()
     posts = json_response.get('data', {}).get('children', [])
 
     if not posts:  # If no posts are returned, print "OK"
-        print("OK")
+        print("OK", end='')  # Print "OK" without a newline or extra space
         return
 
     for post in posts:
-        print(post.get('data', {}).get('title', ""))  # Print each title without extra text
+        print(post.get('data', {}).get('title', ""))  # Print each title
 
