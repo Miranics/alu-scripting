@@ -12,8 +12,9 @@ def top_ten(subreddit):
         url, headers={"User-Agent": "Mozilla/5.0"}, allow_redirects=False
     )
 
-    # Parse the JSON response
+    # Check if the request was successful
     if res.status_code == 200:
+        # Parse the JSON response
         json_response = res.json()
         posts = json_response.get("data", {}).get("children", [])
 
@@ -22,7 +23,7 @@ def top_ten(subreddit):
             print(post.get("data", {}).get("title"))
 
     # Print OK only once
-    print("OK", end="")  # Print OK without a newline
+    print("OK", end="")  # Ensure there's no trailing newline
 
 
 # Test the function with the learnpython subreddit
