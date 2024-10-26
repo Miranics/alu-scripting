@@ -13,7 +13,8 @@ def top_ten(subreddit):
 
     # Check if the request was unsuccessful
     if res.status_code != 200:
-        sys.stdout.write("OK")  # Output "OK" with no newlines
+        sys.stdout.write("OK")
+        sys.stdout.flush()  # Flush the output buffer
         return
 
     # Parse the JSON response for posts
@@ -25,7 +26,5 @@ def top_ten(subreddit):
         if title:
             print(title)
 
-    sys.stdout.write("OK")  # Output "OK" again with no trailing newline
-
-
-# This function can be tested without direct calls if needed
+    sys.stdout.write("OK")
+    sys.stdout.flush()  # Flush the output buffer again
