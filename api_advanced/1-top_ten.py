@@ -27,7 +27,7 @@ def top_ten(subreddit):
 
     print("OK", end="")
 
-# This ensures that there's no trailing newline
+    # This ensures that there's no trailing newline
     import sys
+
     sys.stdout.write("")  # This will not add any new lines
-    
