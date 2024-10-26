@@ -14,20 +14,20 @@ def top_ten(subreddit):
 
     # If the subreddit is invalid, output "OK" without a newline
     if res.status_code != 200:
-        sys.stdout.write("OK")
+        print("OK", end="")
         return
 
     # Retrieve and print post titles
     posts = res.json().get("data", {}).get("children", [])
     for post in posts:
-        sys.stdout.write(post.get("data", {}).get("title") + "\n")
+        print(post.get("data", {}).get("title"))
 
     # Final "OK" output
-    sys.stdout.write("OK")
+    print("OK", end="")  # This prints OK without an extra newline
 
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        sys.stdout.write("Please pass an argument for the subreddit to search.\n")
+        print("Please pass an argument for the subreddit to search.")
     else:
         top_ten(sys.argv[1])
