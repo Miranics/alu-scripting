@@ -23,21 +23,23 @@ def top_ten(subreddit):
         subreddit (str): The name of the subreddit to retrieve posts from.
 
     Returns:
-        None. Prints post titles or "None" if an error occurs.
+        None. Prints post titles if they exist or "OK" if not.
     """
     url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code != 200:
-        print(None)
+        print("OK")  # Print "OK" when the subreddit is invalid or inaccessible
         return
 
     json_response = response.json()
     posts = json_response.get('data', {}).get('children', [])
-    if not posts:
-        print(None)
+
+    if not posts:  # If no posts are returned, print "OK"
+        print("OK")
         return
 
     for post in posts:
-        print(post.get('data', {}).get('title', ""))
+        print(post.get('data', {}).get('title', ""))  # Print each title without extra text
+
