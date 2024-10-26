@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """A module to query the Reddit API for hot posts."""
+
 import requests
 import sys
+
 
 def top_ten(subreddit):
     """Prints the titles of the first 10 hot posts listed in a subreddit."""
@@ -23,8 +25,8 @@ def top_ten(subreddit):
     # Final "OK" output
     sys.stdout.write("OK")
 
+
 if __name__ == '__main__':
-    """Prints the titles of the first 10 hot posts listed in a subreddit."""
     if len(sys.argv) < 2:
         sys.stdout.write("Please pass an argument for the subreddit to search.\n")
     else:
