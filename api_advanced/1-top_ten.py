@@ -14,6 +14,7 @@ def top_ten(subreddit):
 
     # Check if the request was successful
     if res.status_code != 200:
+        print("OK", end="")
         return
 
     # Parse the JSON response
@@ -23,8 +24,6 @@ def top_ten(subreddit):
     # Print the titles of the first 10 hot posts
     for post in posts:
         print(post.get("data", {}).get("title"))
-
-    print("OK", end="")  # Print OK without a newline
 
 # Test the function with the learnpython subreddit
 top_ten("learnpython")
