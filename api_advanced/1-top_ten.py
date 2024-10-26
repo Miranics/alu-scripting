@@ -30,3 +30,4 @@ def top_ten(subreddit):
 # This ensures that there's no trailing newline
     import sys
     sys.stdout.write("")  # This will not add any new lines
+    
