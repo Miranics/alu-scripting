@@ -1,31 +1,36 @@
 #!/usr/bin/python3
 """A module to query the Reddit API for hot posts."""
 import requests
-import sys
+
 
 def top_ten(subreddit):
     """Prints the titles of the first 10 hot posts listed in a subreddit."""
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {"User-Agent": "Mozilla/5.0"}
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
 
-    res = requests.get(url, headers=headers, allow_redirects=False)
+    # Send a GET request to the subreddit URL
+    res = requests.get(
+        url, headers={"User-Agent": "Mozilla/5.0"}, allow_redirects=False
+    )
 
-    # If the subreddit is invalid, output "OK" without a newline
+    # Check if the request was successful
     if res.status_code != 200:
         print("OK", end="")
         return
 
-    # Retrieve and print post titles
-    posts = res.json().get("data", {}).get("children", [])
+    # Parse the JSON response
+    json_response = res.json()
+    posts = json_response.get("data", {}).get("children", [])
+
+    # Print the titles of the first 10 hot posts
     for post in posts:
         print(post.get("data", {}).get("title"))
 
-    # Final "OK" output
-    print("OK", end="")  # This prints OK without an extra newline
+    print("OK", end="")
 
+    # This ensures that there's no trailing newline
+    import sys
 
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Please pass an argument for the subreddit to search.")
-    else:
-        top_ten(sys.argv[1])
+    sys.stdout.write("")  # This will not add any new lines
+
+# Test the function with the learnpython subreddit
+top_ten("learnpython")
