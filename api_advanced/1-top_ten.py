@@ -1,22 +1,26 @@
 #!/usr/bin/python3
 """A module to query the Reddit API for hot posts."""
 import requests
+import sys
 
 def top_ten(subreddit):
     """Prints the titles of the first 10 hot posts listed in a subreddit."""
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {"User-Agent": "Mozilla/5.0"}
 
     res = requests.get(url, headers=headers, allow_redirects=False)
 
-    # Handle non-existent subreddit and output exactly "OK"
+    # If the subreddit is invalid, output "OK" without newline
     if res.status_code != 200:
-        print("OK", end="")  # This prevents newline or extra characters
+        sys.stdout.write("OK")
+        sys.stdout.flush()
         return
 
-    # Output the titles if valid
+    # Retrieve and print post titles
     posts = res.json().get("data", {}).get("children", [])
     for post in posts:
         print(post.get("data", {}).get("title"))
 
-    print("OK", end="")  # Again, ensures no newline or extra character
+    # Final "OK" to confirm valid output handling
+    sys.stdout.write("OK")
+    sys.stdout.flush()
