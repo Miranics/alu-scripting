@@ -13,14 +13,21 @@ def top_ten(subreddit):
     )
 
     # Check if the request was successful
-    if res.status_code == 200:
-        # Parse the JSON response
-        json_response = res.json()
-        posts = json_response.get("data", {}).get("children", [])
+    if res.status_code != 200:
+        print("OK", end="")
+        return
 
-        # Print the titles of the first 10 hot posts
-        for post in posts:
-            print(post.get("data", {}).get("title"))
+    # Parse the JSON response
+    json_response = res.json()
+    posts = json_response.get("data", {}).get("children", [])
 
-    # Print OK only once
-    print("OK", end="")  # This ensures that "OK" is printed without a newline
+    # Print the titles of the first 10 hot posts
+    for post in posts:
+        print(post.get("data", {}).get("title"))
+
+    # Print OK without an extra newline
+    print("OK", end="")  # Ensures that "OK" is printed without a newline
+
+
+# Uncomment the line below to test the function with an example subreddit
+# top_ten("learnpython")
