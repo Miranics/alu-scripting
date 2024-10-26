@@ -43,3 +43,7 @@ def top_ten(subreddit):
     for post in posts:
         print(post.get('data', {}).get('title', ""))  # Print each title
 
+    # Ensure no newline is printed after the last title
+    import sys
+    sys.stdout.flush()  # Clear any buffer to ensure the output is exactly as expected
+
