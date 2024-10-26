@@ -8,11 +8,13 @@ def top_ten(subreddit):
     url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
 
     # Send a GET request to the subreddit URL
-    res = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, allow_redirects=False)
+    res = requests.get(
+        url, headers={"User-Agent": "Mozilla/5.0"}, allow_redirects=False
+    )
 
     # Check if the request was successful
     if res.status_code != 200:
-        print("OK")  # Print OK (2 characters) for invalid subreddit
+        print("OK", end='')  
         return
 
     # Parse the JSON response
@@ -23,4 +25,4 @@ def top_ten(subreddit):
     for post in posts:
         print(post.get("data", {}).get("title"))
 
-    print("OK")  # Print OK (2 characters) after the titles
+    print("OK", end='')  
