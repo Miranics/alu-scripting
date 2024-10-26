@@ -1,15 +1,18 @@
 #!/usr/bin/python3
 """
-Reddit Top Ten Posts
+Reddit Top Ten Posts Module
 
-This module queries the Reddit API and prints the titles of the first 10
-hot posts for a specified subreddit.
+This module queries the Reddit API to fetch and print the titles of the first
+10 hot posts listed for a given subreddit.
 
 Usage:
-    Call the `top_ten(subreddit)` function with the name of a subreddit.
+    Call the `top_ten(subreddit)` function with the name of a subreddit to
+    retrieve the top 10 hot posts.
 
 Functions:
-    - top_ten(subreddit): Prints the titles of the top 10 hot posts of the subreddit.
+    top_ten(subreddit): Prints the titles of the first 10 hot posts from the 
+                        specified subreddit. If the subreddit is invalid or 
+                        has no posts, it prints "OK".
 """
 
 import requests
@@ -43,6 +46,6 @@ def top_ten(subreddit):
     for post in posts:
         print(post.get('data', {}).get('title', ""))  # Print each title
 
-    # Instead of flushing stdout, just ensure there’s no trailing newline
+    # This ensures that there's no trailing newline
     import sys
     sys.stdout.write("")  # This will not add any new lines
